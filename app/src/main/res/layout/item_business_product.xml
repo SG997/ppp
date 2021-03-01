@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    
+    <ImageView
+        android:id="@+id/businessProductImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/business_banner"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:id="@+id/productName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textDirection="rtl"
+        android:text="מפגש חשיבה"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/businessProductImage" />
+
+    <TextView
+        android:id="@+id/productExplain"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textDirection="rtl"
+        android:text="מגוון מוחות שחושבים יחד איך לעשות לך כסף"
+        app:layout_constraintTop_toBottomOf="@+id/productName"
+        app:layout_constraintRight_toRightOf="@+id/productName"
+        app:layout_constraintLeft_toRightOf="@+id/businessProductImage"/>
+
+    <TextView
+        android:id="@+id/productAmount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textDirection="rtl"
+        android:text="30"
+        app:layout_constraintTop_toBottomOf="@+id/productExplain"
+        app:layout_constraintRight_toRightOf="@+id/productName"
+        app:layout_constraintLeft_toRightOf="@+id/businessProductImage"
+        app:layout_constraintBottom_toBottomOf="@+id/businessProductImage"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:background="@drawable/line_horizontal"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/businessProductImage"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

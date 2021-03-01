@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="30dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/businessViewBanner"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/business_banner"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <ImageView
+        android:id="@+id/circleImage"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:elevation="20dp"
+        android:src="@drawable/business_circle_logo"
+        app:layout_constraintTop_toBottomOf="@+id/businessViewBanner"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/businessViewBanner" />
+
+    <TextView
+        android:id="@+id/businessNameBanner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:elevation="2dp"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:layout_marginTop="20dp"
+        android:textDirection="rtl"
+        android:text="וֹUpneti"
+        app:layout_constraintTop_toBottomOf="@+id/businessViewBanner"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:id="@+id/bannerExplane"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:elevation="2dp"
+        android:textSize="15dp"
+        android:layout_marginTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="הקהילה הגדולה בישראל למפגשים ופיתוח עסקי באונליין"
+        app:layout_constraintTop_toBottomOf="@+id/businessNameBanner"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#E6E7EC"
+        app:layout_constraintTop_toBottomOf="@+id/businessViewBanner"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/bannerExplane"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

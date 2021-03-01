@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="alert_title">שלום לך</string>
+    <string name="pay_content_alert">הינך עומד לבצע חיוב עבור $$$ כוכבים</string>
+    <string name="purchase_stars">נראה שאין ברשותך מספיק כוכבים, \nתוכל לרכוש כוכבים...</string>
+</resources>

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    >
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/registerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+
+            <ImageView
+                android:id="@+id/upStoreLogo"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/upstore_logo"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+
+            <TextView
+                android:id="@+id/welcomeMessage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="30dp"
+                android:text="ברוכים הבאים"
+                android:textStyle="bold"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@+id/upStoreLogo"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+
+            <EditText
+                android:id="@+id/businessName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="שם העסק"
+                android:gravity="right"
+                android:inputType="textEmailAddress"
+                app:layout_constraintTop_toBottomOf="@+id/welcomeMessage"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent" />
+
+            <EditText
+                android:id="@+id/businessMail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="אימייל"
+                android:gravity="right"
+                android:inputType="textEmailAddress"
+                app:layout_constraintTop_toBottomOf="@+id/businessName"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent" />
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:inputType="textPassword"
+                android:hint="סיסמא"
+                app:layout_constraintTop_toBottomOf="@+id/businessMail"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent" />
+
+            <EditText
+                android:id="@+id/businessExplain"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="כאן תסביר על העסק שלך"
+
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/password"
+                />
+
+            <LinearLayout
+                android:id="@+id/bankData"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10"
+                android:layout_marginTop="30dp"
+                app:layout_constraintTop_toBottomOf="@+id/businessExplain"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent" >
+
+                <EditText
+                    android:id="@+id/bankNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:hint="מספר בנק"
+                    android:layout_weight="2.5"
+                    />
+
+                <EditText
+                    android:id="@+id/branchNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:hint="מספר סניף"
+                    android:layout_weight="3.5"
+                    />
+
+                <EditText
+                    android:id="@+id/accountNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:hint="מספר חשבון"
+                    android:layout_weight="4" />
+
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/banner"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/upstore_logo"
+                app:layout_constraintTop_toBottomOf="@+id/bankData"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+
+            <ImageButton
+                android:id="@+id/bannerLogo"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/upstore_logo"
+                app:layout_constraintTop_toBottomOf="@+id/banner"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+
+            <LinearLayout
+                android:id="@+id/productsDataLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@+id/bannerLogo"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/completeSignIn"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:text="לחץ להרשמה"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"  />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
