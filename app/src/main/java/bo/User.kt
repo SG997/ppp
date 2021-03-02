@@ -1,8 +1,6 @@
 package bo
 
-import adapters.AdapterBusinessPresent
 import adapters.AdapterBusinessSelectProducts
-import android.net.Uri
 import com.google.firebase.database.IgnoreExtraProperties
 
 
