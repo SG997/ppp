@@ -17,29 +17,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
-
-            <ImageView
-                android:id="@+id/upStoreLogo"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginTop="20dp"
-                android:src="@drawable/upstore_logo"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"/>
-
-            <TextView
-                android:id="@+id/welcomeMessage"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textSize="30dp"
-                android:text="ברוכים הבאים"
-                android:textStyle="bold"
-                android:gravity="center"
-                app:layout_constraintTop_toBottomOf="@+id/upStoreLogo"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"/>
-
             <EditText
                 android:id="@+id/businessName"
                 android:layout_width="0dp"
@@ -47,7 +24,7 @@
                 android:hint="שם העסק"
                 android:gravity="right"
                 android:inputType="textEmailAddress"
-                app:layout_constraintTop_toBottomOf="@+id/welcomeMessage"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent" />
 
@@ -143,28 +120,9 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"/>
 
-            <LinearLayout
-                android:id="@+id/productsDataLayout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@+id/bannerLogo"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent" />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
-
-    <Button
-        android:id="@+id/completeSignIn"
-        android:layout_width="0dp"
-        android:layout_height="45dp"
-        android:text="לחץ להרשמה"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"  />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

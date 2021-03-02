@@ -1,6 +1,5 @@
 package flows
 
-import android.provider.ContactsContract
 import base.BaseFlow
 import base.BaseFragment
 import base.UIStep
@@ -8,9 +7,7 @@ import bo.User
 import com.google.firebase.auth.FirebaseAuth
 import data.Cache
 import datamodel.Bank
-import firebase.FireBaseData
 import fragments.*
-import java.util.*
 
 class MainFlow : BaseFlow() {
 
@@ -124,7 +121,7 @@ class MainFlow : BaseFlow() {
         })
 
         addStep(object : UIStep(){
-            override fun getFragment(): BaseFragment = FragmentSighIn.getInstance(this)
+            override fun getFragment(): BaseFragment = FragmentSignIn.getInstance()
 
             override fun shouldPresent(): Boolean = signInPresent
 
