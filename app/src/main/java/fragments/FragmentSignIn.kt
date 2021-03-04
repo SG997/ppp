@@ -88,10 +88,7 @@ class FragmentSignIn : BaseFragment() {
         createUser()
     }
 
-
-
-
-    fun initFragmentsList(){
+    private fun initFragmentsList(){
         fragments.add(FragmentInsertDetailes())
         fragments.add(FragmentInsertProducts())
     }

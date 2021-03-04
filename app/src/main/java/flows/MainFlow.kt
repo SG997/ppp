@@ -2,6 +2,7 @@ package flows
 
 import base.BaseFlow
 import base.BaseFragment
+import base.InnerFlowStep
 import base.UIStep
 import bo.User
 import com.google.firebase.auth.FirebaseAuth
@@ -212,6 +213,23 @@ class MainFlow : BaseFlow() {
                 purchasePresent = false
                 productScreenPresent = true
             }
+
+        })
+        var editProductsPresent = false
+        addStep(object : UIStep(){
+            override fun onFragmentEnded(data: Any) {
+
+            }
+
+            override fun getData(): Any = Any()
+
+            override fun onBackPressed() {
+
+            }
+
+            override fun getFragment(): BaseFragment? = FragmentInsertAndEditProducts()
+
+            override fun shouldPresent(): Boolean = editProductsPresent
 
         })
     }

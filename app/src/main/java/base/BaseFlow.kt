@@ -2,7 +2,7 @@ package base
 
 import android.app.Activity
 
-open class BaseFlow() : Base(){
+open class BaseFlow(){
     var mActivity : Activity? = null
     var list = ArrayList<UIStep>()
 
@@ -31,6 +31,4 @@ open class BaseFlow() : Base(){
         }
         return null
     }
-
-    override fun getFragment(): BaseFragment? = currentStep()
 }

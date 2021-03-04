@@ -12,7 +12,6 @@ abstract class UIStep : Base() {
         return frag!!
     }
 
-    abstract fun shouldPresent() : Boolean
     abstract fun onFragmentEnded(data : Any)
     abstract fun getData() : Any
     abstract fun onBackPressed()
