@@ -1,6 +1,6 @@
 package base
 
-abstract class UIStep{
+abstract class UIStep : Base() {
     var frag : BaseFragment? = null
     init {
     }
@@ -11,7 +11,7 @@ abstract class UIStep{
         }
         return frag!!
     }
-    protected abstract fun getFragment() : BaseFragment
+
     abstract fun shouldPresent() : Boolean
     abstract fun onFragmentEnded(data : Any)
     abstract fun getData() : Any

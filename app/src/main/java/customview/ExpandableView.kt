@@ -32,6 +32,10 @@ class ExpandableView(context: Context, attrs: AttributeSet) : LinearLayout(conte
         }
     }
 
+    fun changeChevronVisibility(shouldView : Boolean){
+        expandableChevron.visibility = if (shouldView) View.VISIBLE else View.GONE
+    }
+
     private fun createAndStartChevronAnimation(isOpen : Boolean){
         var START_ANGLE = 0f
         var FINISH_ANGLE = -90f

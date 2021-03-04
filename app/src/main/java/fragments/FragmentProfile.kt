@@ -9,9 +9,12 @@ import android.view.ViewGroup
 import base.BaseFragment
 import base.UIStep
 import com.example.myapplication.R
+import data.Cache
 import datamodel.Bank
 import kotlinx.android.synthetic.main.bank_account_card.view.*
 import kotlinx.android.synthetic.main.credit_card.view.*
+import kotlinx.android.synthetic.main.expandable_layout.*
+import kotlinx.android.synthetic.main.expandable_layout.view.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.item_two_lines.view.*
 import java.io.Serializable
@@ -43,14 +46,31 @@ class FragmentProfile : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setTextsAndDataToUI()
+        setUpListener()
     }
 
     override fun bind(data: Any) {
 
     }
 
+    private fun setUpListener(){
+        buyStars.setOnClickListener {
+            notifyFinish(Action.STARS)
+        }
+
+        purchaseHistory.setOnClickListener {
+            notifyFinish(Action.HISTORY)
+        }
+
+        productsEdit.setOnClickListener {
+            notifyFinish(Action.EDIT_PRODUCTS)
+        }
+    }
+
     private fun setTextsAndDataToUI(){
         val inflater = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+
+        remainingStars.text = "${Cache.currentUser?.stars} כוכבים"
         setBankAccountView(inflater)
         setCreditCardView(inflater)
 
@@ -75,10 +95,12 @@ class FragmentProfile : BaseFragment() {
     }
 
     private fun setCreditCardView(inflater : LayoutInflater){
-        fun setTopView(){
+        fun setTopView(isEmpty : Boolean){
             var credit = inflater.inflate(R.layout.item_two_lines, null)
             credit.titleItem.text = "כרטיס אשראי"
             credit.titleItemSecond.text = "${data?.fourLastNumberCreditCard} **** **** ****"
+            credit.titleItemSecond.visibility = if (isEmpty) View.GONE else View.VISIBLE
+            creditCard.changeChevronVisibility(!isEmpty)
             creditCard.setTopView(credit)
         }
 
@@ -88,7 +110,8 @@ class FragmentProfile : BaseFragment() {
             creditCard.setBottomView(creditBottomView)
         }
 
-        setTopView()
+        // Todo change the empty and top view following if there a creditcard or not
+        setTopView(true)
         setBottomView()
     }
 
@@ -98,4 +121,10 @@ class FragmentProfile : BaseFragment() {
             var bank: Bank,
             var fourLastNumberCreditCard : String
     ) : Serializable
+
+    enum class Action{
+        STARS,
+        HISTORY,
+        EDIT_PRODUCTS
+    }
 }

@@ -73,13 +73,28 @@ class MainFlow : BaseFlow() {
             override fun shouldPresent(): Boolean = profilePresent
 
             override fun onFragmentEnded(data : Any) {
+                profilePresent = false
 
+                when(data as FragmentProfile.Action){
+                    FragmentProfile.Action.STARS -> {
+                        purchasePresent = true
+                    }
+
+                    FragmentProfile.Action.HISTORY -> {
+
+                    }
+
+                    FragmentProfile.Action.EDIT_PRODUCTS -> {
+
+                    }
+                }
             }
 
             override fun getData(): Any = Any()
 
             override fun onBackPressed() {
                 selectBusinessPresent = true
+                profilePresent = false
             }
 
         })

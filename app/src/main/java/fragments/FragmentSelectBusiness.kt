@@ -100,6 +100,7 @@ class FragmentSelectBusiness: BaseFragment() {
             storageRef.child(FireBaseImage.getBusinessBannerPath(Cache.users[i].email)).downloadUrl.addOnSuccessListener { uri ->
                 imagesBanner[i] = uri
             }
+
             storageRef.child(FireBaseImage.getBusinessIconPath(Cache.users[i].email)).downloadUrl.addOnSuccessListener {uri ->
                 imagesIcon[i] = uri
             }

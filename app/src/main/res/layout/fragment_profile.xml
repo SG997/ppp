@@ -73,6 +73,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/cube1" />
 
             <TextView
+                android:id="@+id/remainingStars"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:text="45  כוכבים"
@@ -198,7 +199,7 @@
                 android:id="@+id/productsEdit"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
-                android:text="היסטורית רכישות"
+                android:text="עריכת מידע עסקי"
                 android:textStyle="bold"
                 android:gravity="center"
                 android:background="@drawable/empty_rec"

@@ -1,6 +1,7 @@
 package fragments
 
 import adapters.AdapterBusinessSelectProducts
+import android.content.DialogInterface
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import bo.User
 import com.example.myapplication.R
 import com.google.firebase.auth.FirebaseAuth
 import datamodel.ImageAndPath
+import dialogs.CustomDialog
 import firebase.FireBaseData
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 
@@ -43,19 +45,20 @@ class FragmentSignIn : BaseFragment() {
     fun initListener(){
         completeSignIn.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
+            handleRegisterLogic()
+        }
+    }
+
+    fun handleRegisterLogic(){
+        try {
             register()
+        } catch (e : Exception){
+            CustomDialog.getAlertDialog(context!!, "אופס,", "חסר לך מידע, להשלמת התהליך אנה הזן את כלל השדות הדרוים", DialogInterface.OnClickListener { dialog, which -> dialog.dismiss()}, declineButtonView = false).show()
         }
     }
 
     private fun register(){
-        // Reinit the data
-        insertedData = CompleteRegistrationData()
-
-        // Collect all the data
-        fragments.forEach { (it as PopulateData).setLocalData(insertedData) }
-
-        context?.let { nonNulContext ->
-
+        fun createUser(){
             FireBaseData.notify = getFireBaseDataStoringListenere()
 
             var user = User(insertedData.name!!,
@@ -66,17 +69,31 @@ class FragmentSignIn : BaseFragment() {
                     insertedData.explain)
 
             var userImages = ImageAndPath(insertedData.banner!!, insertedData.bannerLogo!!, insertedData.productsImages!!)
-            FireBaseData.createUser(nonNulContext, insertedData.email, insertedData.password,
+            FireBaseData.createUser(context!!, insertedData.email, insertedData.password,
                     user, userImages)
             // FireBaseData.storeUser(it, finalUser, imagesList)
         }
+
+        // Reinit the data
+        insertedData = CompleteRegistrationData()
+
+        // Collect all the data
+        fragments.forEach { (it as PopulateData).setLocalData(insertedData) }
+
+        context?.let { nonNulContext ->
+
+
+        }
+
+        createUser()
     }
+
+
 
 
     fun initFragmentsList(){
         fragments.add(FragmentInsertDetailes())
         fragments.add(FragmentInsertProducts())
-        //fragments.add(FragmentInsertProducts())
     }
 
     fun setUpViewPager(){
