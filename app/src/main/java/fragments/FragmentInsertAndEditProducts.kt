@@ -30,7 +30,7 @@ class FragmentInsertAndEditProducts : BaseFragment() {
 
     fun asd() {
         pressToAddProduct.setOnClickListener {
-
+            addProductLogic()
         }
     }
 
@@ -40,7 +40,7 @@ class FragmentInsertAndEditProducts : BaseFragment() {
 
             }
 
-        })
+        }).show()
 
     }
 

@@ -17,7 +17,7 @@ import firebase.FireBaseImage
 import kotlinx.android.synthetic.main.fragment_business_select_product.*
 
 class FragmentBusinessSelectProducts : BaseFragment() {
-
+    var isEditable : Boolean = false
     companion object{
         fun getInstance(uiStep : UIStep) : BaseFragment{
             var fragment = FragmentBusinessSelectProducts()
@@ -29,7 +29,18 @@ class FragmentBusinessSelectProducts : BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? = inflater.inflate(R.layout.fragment_business_select_product, container, false)
 
     override fun bind(data: Any) {
-        Cache.users[Cache.choosedBusiness].let{
+        var user : User?
+        var products : ArrayList<AdapterBusinessSelectProducts.BusinessProduct>?
+
+        isEditable = data as Boolean
+        if (isEditable){
+            user = Cache.currentUser
+
+        } else {
+            user = Cache.users[Cache.choosedBusiness]
+        }
+
+        user?.let{
             loadedAllProductsImagesUris(it)
             downloadAndLoadBannerImage(it)
             initText(it.name, it.explain)

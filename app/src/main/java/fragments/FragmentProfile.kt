@@ -1,20 +1,20 @@
 package fragments
 
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import base.BaseFragment
 import base.UIStep
 import com.example.myapplication.R
+import com.google.firebase.auth.FirebaseAuth
 import data.Cache
 import datamodel.Bank
+import dialogs.CustomDialog
 import kotlinx.android.synthetic.main.bank_account_card.view.*
 import kotlinx.android.synthetic.main.credit_card.view.*
-import kotlinx.android.synthetic.main.expandable_layout.*
-import kotlinx.android.synthetic.main.expandable_layout.view.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.item_two_lines.view.*
 import java.io.Serializable
@@ -64,6 +64,10 @@ class FragmentProfile : BaseFragment() {
 
         productsEdit.setOnClickListener {
             notifyFinish(Action.EDIT_PRODUCTS)
+        }
+
+        signOut.setOnClickListener {
+            logOutLogic()
         }
     }
 
@@ -115,6 +119,16 @@ class FragmentProfile : BaseFragment() {
         setBottomView()
     }
 
+    private fun logOutLogic(){
+        context?.let {
+            CustomDialog.getAlertDialog(it, "שים לב", "הינך עומד לבצע התנתקות מהמערכת, לחץ אישור בשביל להמשיך", DialogInterface.OnClickListener { dialog, which ->
+                dialog.dismiss()
+                FirebaseAuth.getInstance().signOut()
+                notifyFinish(Action.LOG_OUT)
+            }).show()
+        }
+    }
+
     data class ProfileDataModel(
             var countStars : Int,
             var businessName : String,
@@ -125,6 +139,7 @@ class FragmentProfile : BaseFragment() {
     enum class Action{
         STARS,
         HISTORY,
-        EDIT_PRODUCTS
+        EDIT_PRODUCTS,
+        LOG_OUT
     }
 }

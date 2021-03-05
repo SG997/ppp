@@ -1,11 +1,14 @@
 package fragments
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import base.BaseFragment
 import com.example.myapplication.R
+import com.google.firebase.auth.FirebaseAuth
+import dialogs.CustomDialog
 import kotlinx.android.synthetic.main.fragment_log_in.*
 
 class FragmentLogIn : BaseFragment() {
@@ -35,19 +38,28 @@ class FragmentLogIn : BaseFragment() {
 
     fun setUpLogic() {
         entryBtn.setOnClickListener {
-            var main = logInEmail.text.toString()
-            var password = logInPassword.text.toString()
-
-            // Handle logIn handle:
-            /**
-             * If user has user well done go to all businesses else pop up
-             *
-             * Go to sign in
-             */
+            logIn()
         }
 
         goToSignIn.setOnClickListener {
             notifyFinish(LogInData(true))
+        }
+    }
+
+    private fun logIn(){
+        var mail = logInEmail.text.toString()
+        var password = logInPassword.text.toString()
+
+        val user = FirebaseAuth.getInstance()
+
+        user.signInWithEmailAndPassword(mail, password).addOnSuccessListener {
+            notifyFinish(LogInData())
+        }.addOnFailureListener {
+            context?.let {
+                CustomDialog.getAlertDialog(it, "משהו השתבש...", "אחד מהפרטים שהזנת לא תואמים את המידע השמור אצלינו במערכת אנה נסה שוב...", DialogInterface.OnClickListener { dialog, which ->
+                    dialog.dismiss()
+                }).show()
+            }
         }
     }
 

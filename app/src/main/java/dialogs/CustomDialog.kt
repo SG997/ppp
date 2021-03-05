@@ -27,6 +27,7 @@ object CustomDialog {
         
         view.negative.setOnClickListener {
             cancelListener?.onClick(dialog, DialogInterface.BUTTON_NEGATIVE)
+            if (cancelListener == null) { dialog.dismiss() }
         }
 
         view.negative.visibility = if (declineButtonView) View.VISIBLE else View.GONE
@@ -41,10 +42,12 @@ object CustomDialog {
 
         var dialog = AlertDialog.Builder(context).setView(view).create()
 
+        view.confirmProduct.visibility = View.VISIBLE
+
         view.confirmProduct.setOnClickListener {
-            var name = it.productName.toString()
-            var explain = it.productExplain.toString()
-            var amount = it.productPrice.toString()
+            var name = view.productName.toString()
+            var explain = view.productExplain.toString()
+            var amount = view.productPrice.toString()
 
             var product = AdapterBusinessSelectProducts.BusinessProduct("a", name, explain, amount)
 

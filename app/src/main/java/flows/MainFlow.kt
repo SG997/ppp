@@ -20,6 +20,12 @@ class MainFlow : BaseFlow() {
     var logInPresent = false
     var productScreenPresent = false
     var purchasePresent = false
+    var editProductsPresent = false
+
+
+    var isBusinessProductsEditable = false
+
+
 
 
     init {
@@ -86,7 +92,13 @@ class MainFlow : BaseFlow() {
                     }
 
                     FragmentProfile.Action.EDIT_PRODUCTS -> {
+                        productsPresent = true
+                        isBusinessProductsEditable = true
 
+                    }
+
+                    FragmentProfile.Action.LOG_OUT -> {
+                        logInPresent = true
                     }
                 }
             }
@@ -128,7 +140,7 @@ class MainFlow : BaseFlow() {
                 productScreenPresent = true
             }
 
-            override fun getData(): Any = Any()
+            override fun getData(): Any = isBusinessProductsEditable
 
             override fun onBackPressed() {
                 productsPresent = false
@@ -215,7 +227,7 @@ class MainFlow : BaseFlow() {
             }
 
         })
-        var editProductsPresent = false
+
         addStep(object : UIStep(){
             override fun onFragmentEnded(data: Any) {
 
