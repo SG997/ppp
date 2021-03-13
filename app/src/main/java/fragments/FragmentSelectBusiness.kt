@@ -67,11 +67,18 @@ class FragmentSelectBusiness: BaseFragment() {
         super.onStart()
         FireBaseData.observeToUserDataChange(object : FireBaseData.DataStoring{
             override fun onAction(actionCode: FireBaseData.Action, isSuccess: Boolean) {
-                loadImages()
+                try {
+                    if (isAdded() && isVisible() && getUserVisibleHint()){
+                        loadImages()
+                    }
+                } catch (e: Exception){
+
+                }
             }
         })
     }
 
+    @Throws(Exception::class)
     fun configRecycler(imagesBanner : Array<Uri?>, imagesIcon : Array<Uri?>){
         recyclerViewBusiness.layoutManager = LinearLayoutManager(context)
         recyclerViewBusiness.setHasFixedSize(true)

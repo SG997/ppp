@@ -49,13 +49,13 @@ class FragmentInsertProducts : BaseFragment(), FragmentSignIn.PopulateData {
     }
 
     fun importImage(view : ImageButton){
-        openGallery()
         (activity as MainActivity).imageLoaded = object : MainActivity.OnImageLoaded{
             override fun onImageLoaded(uir: Uri) {
                 view.setImageURI(uir)
                 view.tag = uir
             }
         }
+        openGallery()
     }
 
     private fun openGallery() {

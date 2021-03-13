@@ -16,6 +16,7 @@ object FireBaseImage {
     fun getBusinessIconPath(mail : String) = getUserImagePathViaMail(mail) + ICON_PATH
 
     fun getBusinessProductPathViaMail(mail : String, number : Int) = getUserImagePathViaMail(mail) + PRODUCT_PATH + number
+    fun getBusinessProductPathViaMail(mail : String, number : String) = getUserImagePathViaMail(mail) + PRODUCT_PATH + number
 
     private fun validateMail(mail : String) = mail.replace(".", "")
 

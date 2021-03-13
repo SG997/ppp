@@ -100,27 +100,6 @@
 
             </LinearLayout>
 
-            <ImageButton
-                android:id="@+id/banner"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginTop="20dp"
-                android:src="@drawable/upstore_logo"
-                app:layout_constraintTop_toBottomOf="@+id/bankData"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"/>
-
-            <ImageButton
-                android:id="@+id/bannerLogo"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginTop="20dp"
-                android:src="@drawable/upstore_logo"
-                app:layout_constraintTop_toBottomOf="@+id/banner"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"/>
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

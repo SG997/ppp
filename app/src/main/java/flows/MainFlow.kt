@@ -27,7 +27,6 @@ class MainFlow : BaseFlow() {
 
 
 
-
     init {
         if (FirebaseAuth.getInstance().currentUser == null){
             logInPresent = true
@@ -145,6 +144,7 @@ class MainFlow : BaseFlow() {
             override fun onBackPressed() {
                 productsPresent = false
                 selectBusinessPresent = true
+                isBusinessProductsEditable = false
             }
         })
 

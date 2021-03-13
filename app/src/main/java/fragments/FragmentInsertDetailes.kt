@@ -35,7 +35,6 @@ class FragmentInsertDetailes : BaseFragment(), FragmentSignIn.PopulateData {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpListener()
     }
 
     override fun bind(data: Any) {
@@ -60,16 +59,6 @@ class FragmentInsertDetailes : BaseFragment(), FragmentSignIn.PopulateData {
 
     fun collectBankAccountData() : BankAccount = BankAccount(bankNumber.text.toString().toInt(), branchNumber.text.toString().toInt(), accountNumber.text.toString().toInt())
 
-    fun setUpListener(){
-        banner.setOnClickListener {
-            importImage(banner)
-        }
-
-        bannerLogo.setOnClickListener {
-            importImage(bannerLogo)
-        }
-    }
-
     override fun setLocalData(user: FragmentSignIn.CompleteRegistrationData): Boolean {
         user.name = businessName.text.toString()
         user.email = businessMail.text.toString()
@@ -77,9 +66,6 @@ class FragmentInsertDetailes : BaseFragment(), FragmentSignIn.PopulateData {
         user.explain = businessExplain.text.toString()
 
         user.bankAccount = collectBankAccountData()
-
-        user.banner = banner.tag as Uri
-        user.bannerLogo = bannerLogo.tag as Uri
 
         return true
     }

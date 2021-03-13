@@ -36,21 +36,21 @@ class FragmentProduct : BaseFragment(){
 
         var storageRef = FirebaseStorage.getInstance().reference
 
-        storageRef.child(FireBaseImage.getBusinessBannerPath(Cache.users[Cache.choosedBusiness].email)).downloadUrl.addOnSuccessListener { uri ->
-            Picasso.with(context).load(uri).into(productImage)
-        }
+        Picasso.with(context).load(Cache.currentUser?.bannerUrl).into(productImage)
 
-        product = Cache.users[Cache.choosedBusiness].products[Cache.currenProduct]
+        product = Cache.users[Cache.choosedBusiness].products!![Cache.currenProduct.toString()]
 
         setTexts()
     }
-
+    fun setStarsBalance(stars : String){
+        remainStars.text = context?.getText(R.string.stars_text)?.replace(Regex("xxx"), stars)
+    }
 
     private fun setTexts(){
         product?.let {
             productDetail.text = it.detailes
             starAmount.text = it.amount
-            remainStars.text = remainStars.text.replace(Regex("xxx"), Cache.currentUser?.stars.toString() ?: "-1")
+            setStarsBalance(Cache.currentUser?.stars.toString())
         }
 
         continuePaying.setOnClickListener {
@@ -72,7 +72,12 @@ class FragmentProduct : BaseFragment(){
                 DialogInterface.OnClickListener { dialog, which ->
                     var balance : Int? = Cache.currentUser?.stars?.minus(product?.amount?.toInt()!!)
 
-                    FireBaseData.updateStars(context, Cache.currentUser!!.email, balance!!)
+                    FireBaseData.updateStars(context, Cache.currentUser!!.email, balance!!, object : FireBaseData.DataStoring{
+                        override fun onAction(actionCode: FireBaseData.Action, isSuccess: Boolean) {
+                            setStarsBalance(balance.toString())
+                        }
+
+                    })
                     dialog.dismiss()
                 },
                 DialogInterface.OnClickListener { dialog, which ->

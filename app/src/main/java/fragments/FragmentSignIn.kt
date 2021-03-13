@@ -42,14 +42,14 @@ class FragmentSignIn : BaseFragment() {
         initListener()
     }
 
-    fun initListener(){
+    private fun initListener(){
         completeSignIn.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
             handleRegisterLogic()
         }
     }
 
-    fun handleRegisterLogic(){
+    private fun handleRegisterLogic(){
         try {
             register()
         } catch (e : Exception){
@@ -65,12 +65,14 @@ class FragmentSignIn : BaseFragment() {
                     insertedData.password,
                     insertedData.email,
                     insertedData.bankAccount!!,
-                    insertedData.products!!,
+                    null,
                     insertedData.explain)
 
-            var userImages = ImageAndPath(insertedData.banner!!, insertedData.bannerLogo!!, insertedData.productsImages!!)
+            user.stars = 1000
+
+            //var userImages = ImageAndPath(insertedData.banner!!, insertedData.bannerLogo!!, insertedData.productsImages!!)
             FireBaseData.createUser(context!!, insertedData.email, insertedData.password,
-                    user, userImages)
+                    user)
             // FireBaseData.storeUser(it, finalUser, imagesList)
         }
 
@@ -90,7 +92,7 @@ class FragmentSignIn : BaseFragment() {
 
     private fun initFragmentsList(){
         fragments.add(FragmentInsertDetailes())
-        fragments.add(FragmentInsertProducts())
+        //fragments.add(FragmentInsertProducts())
     }
 
     fun setUpViewPager(){

@@ -10,6 +10,7 @@ import base.BaseFragment
 import base.UIStep
 import com.example.myapplication.R
 import com.google.firebase.auth.FirebaseAuth
+import com.squareup.picasso.Picasso
 import data.Cache
 import datamodel.Bank
 import dialogs.CustomDialog
@@ -77,8 +78,10 @@ class FragmentProfile : BaseFragment() {
         remainingStars.text = "${Cache.currentUser?.stars} כוכבים"
         setBankAccountView(inflater)
         setCreditCardView(inflater)
-
+        setUpBannerImage(Cache.currentUser?.bannerUrl)
     }
+
+    private fun setUpBannerImage(url : String?) = Picasso.with(context).load(url).into(businessLogoImage)
 
     private fun setBankAccountView(inflater : LayoutInflater){
         fun setTopView(){
