@@ -16,12 +16,13 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent" />
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/circleImage"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:elevation="20dp"
         android:src="@drawable/business_circle_logo"
+        android:scaleType="centerCrop"
         app:layout_constraintTop_toBottomOf="@+id/businessViewBanner"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

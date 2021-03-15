@@ -15,6 +15,7 @@ import data.Cache
 import dialogs.CustomDialog
 import firebase.FireBaseData
 import firebase.FireBaseImage
+import firebase.FireBaseMessagesManager
 import kotlinx.android.synthetic.main.fragment_product.*
 
 class FragmentProduct : BaseFragment(){
@@ -38,7 +39,7 @@ class FragmentProduct : BaseFragment(){
 
         Picasso.with(context).load(Cache.currentUser?.bannerUrl).into(productImage)
 
-        product = Cache.users[Cache.choosedBusiness].products!![Cache.currenProduct.toString()]
+        product = Cache.users[Cache.choosedBusiness].products!![Cache.currenProductKey]
 
         setTexts()
     }
@@ -75,6 +76,7 @@ class FragmentProduct : BaseFragment(){
                     FireBaseData.updateStars(context, Cache.currentUser!!.email, balance!!, object : FireBaseData.DataStoring{
                         override fun onAction(actionCode: FireBaseData.Action, isSuccess: Boolean) {
                             setStarsBalance(balance.toString())
+                            reportOfDeal()
                         }
 
                     })
@@ -84,6 +86,14 @@ class FragmentProduct : BaseFragment(){
                     dialog.dismiss()
                 }
         ).show()
+    }
+
+    fun reportOfDeal(){
+        Cache.currentUser?.let {
+            Cache.users[Cache.choosedBusiness]?.let { seller ->
+                FireBaseMessagesManager.buyProduct(context!!, seller.email, it, product!!)
+            }
+        }
     }
 
     fun createNoStarsBalance(context: Context){

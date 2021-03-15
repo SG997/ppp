@@ -10,12 +10,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import base.BaseFragment
 import base.UIStep
+import bo.Messages
 import bo.User
 import com.example.myapplication.R
 import com.google.firebase.storage.FirebaseStorage
 import data.Cache
 import firebase.FireBaseData
 import firebase.FireBaseImage
+import firebase.FireBaseMessagesManager
 import kotlinx.android.synthetic.main.fragment_select_business.*
 import kotlinx.android.synthetic.main.fragment_select_business.view.*
 
@@ -41,6 +43,12 @@ class FragmentSelectBusiness: BaseFragment() {
         }
     }
 
+    fun setUpListener(){
+        messageView.setOnClickListener {
+            notifyFinish(SELECT_BUSINESS.MESSAGE)
+        }
+    }
+
     private fun createFakeData() : ArrayList<AdapterBusinessPresent.BusinessPresentationData>{
         var lst = ArrayList<AdapterBusinessPresent.BusinessPresentationData>()
 
@@ -54,37 +62,48 @@ class FragmentSelectBusiness: BaseFragment() {
         var lst = ArrayList<AdapterBusinessPresent.BusinessPresentationData>()
 
         for (user in data){
-            lst.add(AdapterBusinessPresent.BusinessPresentationData(user.name, user.explain, "asd", "asd"))
+            lst.add(AdapterBusinessPresent.BusinessPresentationData(user.name, user.explain, user.bannerUrl, user.iconUrl))
         }
         return lst
     }
 
     override fun bind(data: Any) {
+        setUpListener()
+    }
 
+    fun asd() = object : FireBaseData.DataStoring{
+        override fun onAction(actionCode: FireBaseData.Action, isSuccess: Boolean) {
+            try {
+                when (actionCode){
+                    FireBaseData.Action.DATA_CHANGE -> {
+                        if (isAdded() && isVisible() && getUserVisibleHint()){
+                            loadImages()
+                        }
+                    }
+
+                    FireBaseData.Action.MESSAGE_LOADED -> {
+                        messageView.setNumber(Messages.getMyMessage(Cache.currentUser!!.email, Cache.messages).size)
+                    }
+                }
+            } catch (e: Exception){
+
+            }
+        }
     }
 
     override fun onStart() {
         super.onStart()
-        FireBaseData.observeToUserDataChange(object : FireBaseData.DataStoring{
-            override fun onAction(actionCode: FireBaseData.Action, isSuccess: Boolean) {
-                try {
-                    if (isAdded() && isVisible() && getUserVisibleHint()){
-                        loadImages()
-                    }
-                } catch (e: Exception){
+        FireBaseData.observeToUserDataChange(asd())
 
-                }
-            }
-        })
+        FireBaseMessagesManager.observToMessage(asd())
     }
 
-    @Throws(Exception::class)
-    fun configRecycler(imagesBanner : Array<Uri?>, imagesIcon : Array<Uri?>){
+    fun configRecycler(){
         recyclerViewBusiness.layoutManager = LinearLayoutManager(context)
         recyclerViewBusiness.setHasFixedSize(true)
 
         // Change data to be independent
-        var adapter = AdapterBusinessPresent(createDataForRecyclerView(Cache.users), imagesBanner, imagesIcon)
+        var adapter = AdapterBusinessPresent(createDataForRecyclerView(Cache.users))
         adapter.listener = object : AdapterBusinessPresent.Clicks {
             override fun onClick(position : Int) {
                 print("asdfghjkl")
@@ -96,31 +115,12 @@ class FragmentSelectBusiness: BaseFragment() {
     }
 
     fun loadImages(){
-        var imagesBanner = Array<Uri?>(Cache.users.size) {null}
-        var imagesIcon = Array<Uri?>(Cache.users.size) {null}
-
-
-        var storageRef = FirebaseStorage.getInstance().reference
-
-        for (i in 0 until Cache.users.size){
-
-            storageRef.child(FireBaseImage.getBusinessBannerPath(Cache.users[i].email)).downloadUrl.addOnSuccessListener { uri ->
-                imagesBanner[i] = uri
-            }
-
-            storageRef.child(FireBaseImage.getBusinessIconPath(Cache.users[i].email)).downloadUrl.addOnSuccessListener {uri ->
-                imagesIcon[i] = uri
-            }
-        }
-
-        Handler().postDelayed({
-            configRecycler(imagesBanner, imagesIcon)
-        }, 1100)
-
+        configRecycler()
     }
 
     enum class SELECT_BUSINESS{
         PROFILE,
-        BUSINESS
+        BUSINESS,
+        MESSAGE
     }
 }

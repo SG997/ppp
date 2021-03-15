@@ -21,6 +21,7 @@ object FireBaseData {
     val USER_PATHES = "users"
     val USER_IMAGES = "users/"
     val BANNER = "/bannerUrl"
+    val ICON = "/iconUrl"
 
     var notify : DataStoring? = null
 
@@ -42,7 +43,8 @@ object FireBaseData {
     }
     fun getUserDBViaMail(mail : String) : DatabaseReference = userRef.child(validateEmailToUserKey(mail))
 
-    fun storeBannerUrl(mail : String, url : String) = getUserDBViaMail(mail).child(BANNER).setValue(url)
+    private fun storeBannerUrl(mail : String, url : String) = getUserDBViaMail(mail).child(BANNER).setValue(url)
+    private fun storeIconUrl(mail : String, url : String) = getUserDBViaMail(mail).child(ICON).setValue(url)
 
     fun storeBannerViaMail(mail : String, uri : Uri){
         storeImage(FireBaseImage.getBusinessBannerPath(mail), uri, object : ImageStoring{
@@ -51,9 +53,17 @@ object FireBaseData {
                     storeBannerUrl(mail, url)
                 }
             }
-
         })
+    }
 
+    fun storeIconViaMail(mail : String, uri : Uri){
+        storeImage(FireBaseImage.getBusinessIconPath(mail), uri, object : ImageStoring{
+            override fun onImageStore(actionCode: Action, url: String, isSuccess: Boolean) {
+                if (isSuccess) {
+                    storeIconUrl(mail, url)
+                }
+            }
+        })
     }
 
     fun deleteProductToUserViaMail(mail : String, position : String){
@@ -92,23 +102,6 @@ object FireBaseData {
     fun storeUserData(context : Context, user : User){
 
         var key = user.email.replace(".", "")
-
-/*        storeImage(FireBaseImage.getBusinessBannerPath(user.email), images.banner)
-        storeImage(FireBaseImage.getBusinessIconPath(user.email), images.icon)
-
-        for (i in 0 until images.products.size){
-            storeImage(FireBaseImage.getBusinessProductPathViaMail(user.email, i), images.products[i], object : ImageStoring{
-                override fun onImageStore(actionCode: Action, url: String, isSuccess: Boolean) {
-                    if (actionCode == Action.STORE_IMAGE && isSuccess){
-                        user.products[i].imageUrl = url
-                    }
-                }
-
-            })
-        }*/
-        //var s = FirebaseStorage.getInstance().getReference(USER_PATHES).child(key).
-
-        //storeUserObject(key, user, context)
 
         userRef.child(key).setValue(user).addOnSuccessListener {
             Toast.makeText(context, "is success", Toast.LENGTH_LONG).show()
@@ -172,6 +165,7 @@ object FireBaseData {
                 var explain = hash.get("explain").toString()
                 var stars = hash.get("stars") as Long?
                 var bannerUrl = hash.get("bannerUrl") as String?
+                var iconUrl = hash.get("iconUrl") as String?
 
                 var bankNumber = (hash.get("bankAccount") as HashMap<String, Long>).get("bankNumber")
                 var branchNumber = (hash.get("bankAccount") as HashMap<String, Long>).get("branchNumber")
@@ -221,7 +215,7 @@ object FireBaseData {
 
                 var bank = BankAccount(bankNumber!!.toInt(), branchNumber!!.toInt(), accountNumber!!.toInt())
 
-                users.add(User(name, password, email, bank, hashProducts, explain, stars?.toInt() ?: -1, bannerUrl))
+                users.add(User(name, password, email, bank, hashProducts, explain, stars?.toInt() ?: -1, bannerUrl, iconUrl))
             }
         }
         return users
@@ -253,6 +247,7 @@ object FireBaseData {
         USER_CRETE,
         DATA_CHANGE,
         STORE_IMAGE,
-        STARS_BALANCE_UPDATE
+        STARS_BALANCE_UPDATE,
+        MESSAGE_LOADED
     }
 }

@@ -21,6 +21,7 @@ class MainFlow : BaseFlow() {
     var productScreenPresent = false
     var purchasePresent = false
     var editProductsPresent = false
+    var messagesPresent = false
 
 
     var isBusinessProductsEditable = false
@@ -44,6 +45,25 @@ class MainFlow : BaseFlow() {
 
     var user : User? = null
     override fun getAllSteps() {
+
+        addStep(object : UIStep(){
+            override fun onFragmentEnded(data: Any) {
+
+            }
+
+            override fun getData(): Any = Any()
+
+            override fun onBackPressed() {
+                messagesPresent = false
+                selectBusinessPresent = true
+            }
+
+            override fun getFragment(): BaseFragment? = FragmentMessages()
+
+            override fun shouldPresent(): Boolean = messagesPresent
+
+        })
+
         addStep(object : UIStep(){
 
             override fun getFragment(): BaseFragment = FragmentSelectBusiness.getInstance(this)
@@ -58,6 +78,10 @@ class MainFlow : BaseFlow() {
 
                     FragmentSelectBusiness.SELECT_BUSINESS.BUSINESS -> {
                         productsPresent = true
+                    }
+
+                    FragmentSelectBusiness.SELECT_BUSINESS.MESSAGE -> {
+                        messagesPresent = true
                     }
                 }
 
@@ -74,7 +98,7 @@ class MainFlow : BaseFlow() {
 
         addStep(object : UIStep(){
             var model = FragmentProfile.ProfileDataModel(5, "נתי", Bank(12, 455, 609865),"3452")
-            override fun getFragment(): BaseFragment = FragmentProfile.getInstance(this, model)
+            override fun getFragment(): BaseFragment = FragmentProfile()
 
             override fun shouldPresent(): Boolean = profilePresent
 
@@ -102,7 +126,7 @@ class MainFlow : BaseFlow() {
                 }
             }
 
-            override fun getData(): Any = Any()
+            override fun getData(): Any = model
 
             override fun onBackPressed() {
                 selectBusinessPresent = true
@@ -244,5 +268,7 @@ class MainFlow : BaseFlow() {
             override fun shouldPresent(): Boolean = editProductsPresent
 
         })
+
+
     }
 }

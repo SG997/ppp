@@ -5,4 +5,10 @@
     <string name="stars_text">נשארו לך xxx כוכבים</string>
 
 
+    <string name="messages_title">מערכת ההודעות</string>
+
+
+    <string name="product_bought_text">מוצר ָ₪₪₪ נקנה ע״י ### ב %%% בסכום של !!!</string>
+
+
 </resources>

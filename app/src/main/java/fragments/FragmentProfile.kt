@@ -2,18 +2,23 @@ package fragments
 
 import android.content.Context
 import android.content.DialogInterface
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import base.BaseFragment
 import base.UIStep
+import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
 import data.Cache
 import datamodel.Bank
 import dialogs.CustomDialog
+import firebase.FireBaseData
+import firebase.FireBaseImage
 import kotlinx.android.synthetic.main.bank_account_card.view.*
 import kotlinx.android.synthetic.main.credit_card.view.*
 import kotlinx.android.synthetic.main.fragment_profile.*
@@ -39,7 +44,6 @@ class FragmentProfile : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view =  inflater.inflate(R.layout.fragment_profile, container, false)
-        data = arguments?.getSerializable(DATA) as ProfileDataModel?
 
         return view
     }
@@ -51,7 +55,7 @@ class FragmentProfile : BaseFragment() {
     }
 
     override fun bind(data: Any) {
-
+        this.data = data as ProfileDataModel
     }
 
     private fun setUpListener(){
@@ -70,6 +74,26 @@ class FragmentProfile : BaseFragment() {
         signOut.setOnClickListener {
             logOutLogic()
         }
+
+        businessLogoImage.setOnClickListener {
+            changeIconPicture(businessLogoImage)
+        }
+    }
+
+    fun changeIconPicture(view : ImageView){
+        (context as MainActivity).let {
+            it.imageLoaded = object : MainActivity.OnImageLoaded{
+                override fun onImageLoaded(uir : Uri){
+
+                    Picasso.with(context).load(uir).into(view)
+                    FireBaseData.storeIconViaMail(Cache.currentUser!!.email, uir)
+
+                }
+
+            }
+
+            it.openGallery()
+        }
     }
 
     private fun setTextsAndDataToUI(){
@@ -78,10 +102,11 @@ class FragmentProfile : BaseFragment() {
         remainingStars.text = "${Cache.currentUser?.stars} כוכבים"
         setBankAccountView(inflater)
         setCreditCardView(inflater)
-        setUpBannerImage(Cache.currentUser?.bannerUrl)
+        setUpLogoImage(Cache.currentUser?.iconUrl)
     }
 
     private fun setUpBannerImage(url : String?) = Picasso.with(context).load(url).into(businessLogoImage)
+    private fun setUpLogoImage(url : String?) = Picasso.with(context).load(url).placeholder(R.drawable.upnettilogo_icon).into(businessLogoImage)
 
     private fun setBankAccountView(inflater : LayoutInflater){
         fun setTopView(){

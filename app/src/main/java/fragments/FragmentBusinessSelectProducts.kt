@@ -150,6 +150,7 @@ class FragmentBusinessSelectProducts : BaseFragment() {
                     addOrEditProduct(data, position)
                 } else{
                     Cache.currenProduct = position
+                    Cache.currenProductKey = data.first
                     notifyFinish(Any())
                 }
             }
